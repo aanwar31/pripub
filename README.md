@@ -6,3 +6,6 @@ npm install
 
 ##start
 node server.js
+
+##demo
+http://pripub.com
