@@ -18,16 +18,6 @@
     <script src="/js/canvasResize.js"></script>
     <script src="/js/script.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-72749775-1', 'auto');
-        ga('send', 'pageview');
-
-    </script>
     <script type="text/javascript">
 
         var pHttp   = "http://";
@@ -44,13 +34,10 @@
             exit();
         }
 
-
-
         pathname = pathname.replace("http://"+pSub+pHost+'/', "");
         pathname = pathname.replace("http://"+pHost+"/", "");
         pathname = pathname.replace("http://", "");
         pathname = pathname.replace("https://", "");
-
 
         if(strpos(pathname, '[-*_pp_*-]', "0") !== false){
             pathnameArray = pathname.split("[-*_pp_*-]");
@@ -69,8 +56,6 @@
                 pathname = MD5(pathname);
             }
         }
-
-
 
         var socket = io(pHttp+pHost+":"+pPort+"/");
 
@@ -122,7 +107,6 @@
                         $('#chatAudio')[0].play();
                     }
 
-
                     if(nik === nick){
                         $(".mesaj").val("");
                     }
@@ -130,8 +114,6 @@
                     $('#send').removeClass('m-progress');
                 }
             });
-
-
 
             socket.on('newjoiner', function (rcn, rnd) {
                 var nck = $("#nick").val();
@@ -158,8 +140,6 @@
                     $("#messagearea").append('<div id="yyy" class="clearfix systemMessage"><div class="col-md-8 col-md-offset-2 pddngzero"><div style="font-size:11px !important; background-color:#eee !important; padding:5px !important;" class="alert alert-base alert-success alert-dismissable">'+onckz+' -> <strong class="onck'+rnd+'">'+nnck+'</strong> nick changed</div></div></div>');
                 }
 
-
-
                 $("html, body").scrollTop($(document).height()-$(window).height());
             });
 
@@ -173,8 +153,6 @@
             socket.on('onlineusercount', function (ouc) {
                 $("#usercount").html(ouc);
             });
-
-
 
         });
 
@@ -264,14 +242,6 @@
         });
 
     </script>
-
-
-
-
-
-
-
-
 </head>
 <body>
 

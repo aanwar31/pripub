@@ -4,11 +4,9 @@ var escape      = require('escape-html');
 var S           = require('string');
 var url         = require('url');
 
-
 var pHttp = "http://";
 var pHost = "pripub.com";
 var pPort = "80";
-
 
 var server = http.createServer(function (req, res) {
 
@@ -105,12 +103,10 @@ var server = http.createServer(function (req, res) {
 
 }).listen(pPort, pHost);
 
-
 var io              = require('socket.io')(server);
 var userUsernames   = {};
 var userChannels    = {};
 var countUser       = 0;
-
 
 io.on('connection', function (client) {
 
@@ -123,7 +119,6 @@ io.on('connection', function (client) {
         client.join(mychannel);
         client.mychannel            = mychannel;
         userChannels[mychannel]     = mychannel;
-
 
         var joinerJson      = require('./json/joinerCounter.json');
         var joinerCount     = joinerJson.joiners;
@@ -139,15 +134,12 @@ io.on('connection', function (client) {
 
             client.rcn           = rcn;
             userUsernames[rcn]   = rcn;
-
         });
 
         var ouc = (Object.keys(client.adapter.rooms[mychannel])).length;
         io.to(mychannel).emit('onlineusercount', ouc);
 
     });
-
-
 
     client.on('message', function (msg, nik, clr, rnd, img, filesize, filetype) {
 
@@ -165,8 +157,7 @@ io.on('connection', function (client) {
             if (err) throw err;
             delete require.cache[require.resolve('./json/messageCounter.json')];
         });
-
-
+        
         if(img){
             var res = img.substr(0, 15);
             var res = res.replace(";", "");
@@ -181,7 +172,6 @@ io.on('connection', function (client) {
                     delete require.cache[require.resolve('./json/fileCounter.json')];
                 });
 
-
                 io.to(client.rooms[1]).emit('message', msg, nik, clr, rnd, img);
             } else {
 
@@ -189,7 +179,6 @@ io.on('connection', function (client) {
         } else {
             io.to(client.rooms[1]).emit('message', msg, nik, clr, rnd, img);
         }
-
 
     });
 
@@ -213,7 +202,6 @@ io.on('connection', function (client) {
     });
 });
 
-
 function numbersconv(str) {
     var res = str * 11;
     return res;
@@ -225,9 +213,6 @@ function getParameterByName(name,urlx) {
         results = regex.exec(urlx);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
-
-
-
 
 var MD5 = function (string) {
 
