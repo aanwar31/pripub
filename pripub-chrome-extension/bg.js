@@ -5,15 +5,10 @@ chrome.browserAction.onClicked.addListener(function(tab) {
     tablink = tab.url;
     tabtitle = tab.title;
 
-
-    
-
     if(tablink === "http://www.pripub.com" || tablink === "http://pripub.com" || tablink === "http://www.pripub.com/" || tablink === "http://pripub.com/"){
         tablink = "pripub";
     }
 
-
-    
     tablink = tablink.replace("http://www.pripub.com/", "");
     tablink = tablink.replace("http://pripub.com/", "");
     tablink = tablink.replace("http://", "");
@@ -30,10 +25,6 @@ chrome.browserAction.onClicked.addListener(function(tab) {
         height: 400,
         incognito: false //true 
     });
-
-
-
-            
         
 });
 
@@ -42,8 +33,6 @@ var userLang = navigator.language || navigator.userLanguage;
 chrome.tabs.onActivated.addListener(function(evt){ 
     chrome.tabs.get(evt.tabId, function(tab){ 
         var tablink=tab.url;
-
-        
 
         if(tablink === "chrome://newtab/"){
             chrome.browserAction.setBadgeText({
@@ -55,8 +44,6 @@ chrome.tabs.onActivated.addListener(function(evt){
                 tablink = "pripub";
             }
 
-
-        
             tablink = tablink.replace("http://www.pripub.com/", "");
             tablink = tablink.replace("http://pripub.com/", "");
             tablink = tablink.replace("http://", "");
@@ -69,8 +56,6 @@ chrome.tabs.onActivated.addListener(function(evt){
             } else {
                  tablink = MD5(tablink);
             }
-            
-
 
             var xhr = new XMLHttpRequest();
             var urlx = "http://pripub.com/online.json?c="+tablink+"p";
@@ -90,20 +75,14 @@ chrome.tabs.onActivated.addListener(function(evt){
             }
             xhr.send();
         }
-
-        
     }); 
 });
-
-
-
 
 function strpos(haystack, needle, offset) {
   var i = (haystack + '')
     .indexOf(needle, (offset || 0));
   return i === -1 ? false : i;
 }
-
 
 var MD5 = function (string) {
 
