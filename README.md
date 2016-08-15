@@ -2,9 +2,7 @@
 ```sh
 pripub private or public, anonymously chat. (2014)
 nodejs + socket.io
-without express
-without redis
-without sql
+without express, redis, sql
 https coming soon
 ```
 
