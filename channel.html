@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>pripub</title>
+    <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" type="image/x-icon" href="/favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700|Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.exif.js"></script>
+    <script src="/js/jquery.canvasResize.js"></script>
+    <script src="/js/canvasResize.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-72749775-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    <script type="text/javascript">
+
+        var pHttp   = "http://";
+        var pHost   = "pripub.com";
+        var pSub    = "www.";
+        var pPort   = "80";
+        var pTitle  = "pripub";
+
+        var pathname = window.location.href;
+        var mainUrl  = pHttp+pHost+"/";
+        if(strpos(pathname, pHttp+pSub+pHost+'/', "0") !== false){
+            pathname = pathname.replace(pHttp+pSub+pHost+'/', '');
+            window.location = pHttp+pHost+"/"+pathname;
+            exit();
+        }
+
+
+
+        pathname = pathname.replace("http://"+pSub+pHost+'/', "");
+        pathname = pathname.replace("http://"+pHost+"/", "");
+        pathname = pathname.replace("http://", "");
+        pathname = pathname.replace("https://", "");
+
+
+        if(strpos(pathname, '[-*_pp_*-]', "0") !== false){
+            pathnameArray = pathname.split("[-*_pp_*-]");
+            pathname = pathnameArray[0];
+            pathLink = pathnameArray[1];
+            if(pathLink.substr(-1) == '/') {
+                pathLink = pathLink.substr(0, pathLink.length - 1);
+            }
+            document.title = pTitle+" channel: " + pathLink;
+        } else {
+            document.title = pTitle+" channel: " + pathname;
+            if(pathname.length === 33 && pathname.substr(-1) === 'p'){
+                pathname= pathname.substr(0, pathname.length - 1);
+                pathname = (pathname);
+            } else {
+                pathname = MD5(pathname);
+            }
+        }
+
+
+
+        var socket = io(pHttp+pHost+":"+pPort+"/");
+
+        socket.emit("join", pathname);
+
+        socket.on('connect', function () {
+            socket.on('message', function (msg,nik,clr,rnd,img) {
+                var random = $("#random").val();
+                var nick = $("#nick").val();
+                var ortak = (random * rnd);
+                var lastnick = $(".lastnick:last").html();
+                var lastDivControl = $('#messagearea #yyy').last().attr('class');
+
+                if(img){
+                    if(lastnick === nik && lastDivControl !== 'clearfix systemMessage'){
+                        $('#messagearea .clss'+rnd+':last').append('<br><img style="padding-bottom:5px; padding-right:5px; padding-top:5px; max-width: 400px; max-height:200px;" src="' + img + '"/>');
+
+                    } else {
+                        if(nick === nick){
+                            $("#messagearea").append('<style>.leftarrw'+rnd+':before{position: absolute;top:13px;left: -16px;content: " ";border-color: transparent;border-style: solid solid outset;border-right-color: '+clr+';border-width: 8px;}</style><div id="yyy" class="clearfix"><div class="col-xs-2 col-sm-1 col-md-2 col-lg-2 pddngzero"><div id="xxx" style="margin-top: 8px;text-align: right;padding-right: 10px;font-size: 17px;"><strong class="lastnick nck'+rnd+'" id="'+nik+'">'+nik+'</strong></div></div><div class="col-xs-10 col-sm-11 col-md-8 col-lg-8 pddngzero"><div id="'+ortak+'" style="background-color:'+clr+' !important;" class="alert alert-base alert-success alert-dismissable leftarrw'+rnd+'"><div class="clss'+rnd+'"><img style="padding-bottom:5px; padding-right:5px; padding-top:5px; max-width: 400px; max-height:200px;" src="' + img + '"/></div></div></div></div>');
+                        } else {
+                            $("#messagearea").append('<style>.leftarrw'+rnd+':before{position: absolute;top:13px;left: -16px;content: " ";border-color: transparent;border-style: solid solid outset;border-right-color: '+clr+';border-width: 8px;}</style><div id="yyy" class="clearfix"><div class="col-xs-2 col-sm-1 col-md-2 col-lg-2 pddngzero"><div id="xxx" style="margin-top: 8px;text-align: right;padding-right: 10px;font-size: 17px;"><a href="'+pHttp+pHost+'/'+ortak+'" target="_blank"><strong class="lastnick nck'+rnd+'" id="'+nik+'">'+nik+'</strong></a></div></div><div class="col-xs-10 col-sm-11 col-md-8 col-lg-8 pddngzero"><div id="'+ortak+'" style="font-size:background-color:'+clr+' !important;" class="alert alert-base alert-success alert-dismissable leftarrw'+rnd+'"><div class="clss'+rnd+'"><img style="padding-bottom:5px; padding-right:5px; padding-top:5px; max-width: 400px; max-height:200px;" src="' + img + '"/></div></div></div></div>');
+                        }
+                    }
+
+                    if(nik === nick){
+                        $("#imagefile").val("");
+                    }
+                    $("html, body").scrollTop($(document).height()-$(window).height());
+                    $('.btn-file').removeClass('m-progress');
+
+                } else {
+
+                    msg = textToLinks(msg);
+                    if(lastnick === nik && lastDivControl !== 'clearfix systemMessage'){
+                        $('#messagearea .clss'+rnd+':last').append('<br>'+msg);
+                    } else {
+                        if(nik === nick){
+                            $("#messagearea").append('<style>.leftarrw'+rnd+':before{position: absolute;top:13px;left: -16px;content: " ";border-color: transparent;border-style: solid solid outset;border-right-color: '+clr+';border-width: 8px;}</style><div id="yyy" class="clearfix"><div class="col-xs-2 col-sm-1 col-md-2 col-lg-2 pddngzero"><div id="xxx" style="margin-top: 8px;text-align: right;padding-right: 10px;font-size: 17px;"><strong class="lastnick nck'+rnd+'" id="'+nik+'">'+nik+'</strong></div></div><div class="col-xs-10 col-sm-11 col-md-8 col-lg-8 pddngzero"><div id="'+ortak+'" style="background-color:'+clr+' !important;" class="alert alert-base alert-success alert-dismissable leftarrw'+rnd+'"><div class="clss'+rnd+'">'+msg+'</div></div></div></div>');
+
+                        } else {
+                            $("#messagearea").append('<style>.leftarrw'+rnd+':before{position: absolute;top:13px;left: -16px;content: " ";border-color: transparent;border-style: solid solid outset;border-right-color: '+clr+';border-width: 8px;}</style><div id="yyy" class="clearfix"><div class="col-xs-2 col-sm-1 col-md-2 col-lg-2 pddngzero"><div id="xxx" style="margin-top: 8px;text-align: right;padding-right: 10px;font-size: 17px;"><a href="'+pHttp+pHost+'/'+ortak+'" target="_blank"><strong class="lastnick nck'+rnd+'" id="'+nik+'">'+nik+'</strong></a></div></div><div class="col-xs-10 col-sm-11 col-md-8 col-lg-8 pddngzero"><div id="'+ortak+'" style="background-color:'+clr+' !important;" class="alert alert-base alert-success alert-dismissable leftarrw'+rnd+'"><div class="clss'+rnd+'">'+msg+'</div></div></div></div>');
+
+                        }
+                    }
+                    if(strpos(msg, '@'+nick, "0") !== false && nik !== nick){
+                        $('<audio id="chatAudio"><source src="sound/snap.ogg" type="audio/ogg"><source src="sound/snap.mp3" type="audio/mpeg"></audio>').appendTo('body');
+                        // play sound
+                        $('#chatAudio')[0].play();
+                    }
+
+
+                    if(nik === nick){
+                        $(".mesaj").val("");
+                    }
+                    $("html, body").scrollTop($(document).height()-$(window).height());
+                    $('#send').removeClass('m-progress');
+                }
+            });
+
+
+
+            socket.on('newjoiner', function (rcn, rnd) {
+                var nck = $("#nick").val();
+                if(nck == rcn){
+                    $("#messagearea").append('<div id="yyy" class="clearfix systemMessage"><div class="col-md-8 col-md-offset-2 pddngzero"><div style="font-size:11px !important; background-color:#eee !important; padding:5px !important;" class="alert alert-base alert-success alert-dismissable"><strong class="onck'+rnd+'">'+rcn+' </strong>you joined. you can write /help for see chat information.</div></div></div>');
+
+                } else {
+                    $("#messagearea").append('<div id="yyy" class="clearfix systemMessage"><div class="col-md-8 col-md-offset-2 pddngzero"><div style="font-size:11px !important; background-color:#eee !important; padding:5px !important;" class="alert alert-base alert-success alert-dismissable"><strong class="onck'+rnd+'">'+rcn+' </strong> joined</div></div></div>');
+
+                }
+
+                $("html, body").scrollTop($(document).height()-$(window).height());
+            });
+
+            socket.on('changeNick', function (nnck, rnd, onckz) { //onck değişkeni silineecek
+
+                var oonck = $('strong.onck'+rnd+':last').html();
+
+                if(oonck === nnck){
+                    $('strong.nck'+rnd).html(nnck);
+                    $("#messagearea").append('<div id="yyy" class="clearfix systemMessage"><div class="col-md-8 col-md-offset-2 pddngzero"><div style="font-size:11px !important; background-color:#eee !important; padding:5px !important;" class="alert alert-base alert-success alert-dismissable"><strong class="onck'+rnd+'">'+nnck+'</strong> your nick changed</div></div></div>');
+                } else {
+                    $('strong.nck'+rnd).html(nnck);
+                    $("#messagearea").append('<div id="yyy" class="clearfix systemMessage"><div class="col-md-8 col-md-offset-2 pddngzero"><div style="font-size:11px !important; background-color:#eee !important; padding:5px !important;" class="alert alert-base alert-success alert-dismissable">'+onckz+' -> <strong class="onck'+rnd+'">'+nnck+'</strong> nick changed</div></div></div>');
+                }
+
+
+
+                $("html, body").scrollTop($(document).height()-$(window).height());
+            });
+
+            socket.on('userleave', function (leftusernick) {
+                $("#messagearea").append('<div id="yyy" class="clearfix systemMessage"><div class="col-md-8 col-md-offset-2 pddngzero"><div style="font-size:11px !important; background-color:#eee !important; padding:5px !important;" class="alert alert-base alert-success alert-dismissable"><strong>'+leftusernick+' </strong> has left</div></div></div>');
+                var usercount = $("#usercount").html();
+                $("#usercount").html(usercount-1);
+                $("html, body").scrollTop($(document).height()-$(window).height());
+            });
+
+            socket.on('onlineusercount', function (ouc) {
+                $("#usercount").html(ouc);
+            });
+
+
+
+        });
+
+    </script>
+    <script>
+
+        $(document).ready(function(){
+            $("#mesaj").focus();
+            $('#sendform').on("submit", function(){
+                mesaj = $("#mesaj").val();
+                nick = $("#nick").val();
+                color = $("#color").val();
+                random = $("#random").val();
+                if(mesaj !== "" && nick !== ""){
+                    if(strpos(mesaj, '/help', "0") !== false && mesaj.length === 5){
+                        $("#messagearea").append('<div id="yyy" class="clearfix systemMessage"><div class="col-md-8 col-md-offset-2 pddngzero"><div style="font-size:11px !important; background-color:#eee !important; padding:5px !important;" class="alert alert-base alert-success alert-dismissable">help menu <br>  you can change your nick.<br>If you use a hash tag (#), it automatically turns them into channel links, like #hello.<br>If you want to talk/chat secretly a user, you should click on each other nick, so open up a new channel both of you.</div></div></div>');
+                        $(".mesaj").val("");
+                        $("html, body").scrollTop($(document).height()-$(window).height());
+
+                    } else {
+                        socket.emit('message', mesaj, nick, color, random);
+                        $('#send').addClass('m-progress');
+                    }
+
+                } else if(mesaj === "") {
+                    $("#mesaj").focus();
+                } else if(nick === "") {
+                    $("#nick").focus();
+                }
+            });
+
+            $('#imagefile').on('change', function(e){
+                nick = $("#nick").val();
+                color = $("#color").val();
+                random = $("#random").val();
+                mesaj = "";
+                var file = e.target.files[0];
+                //only jpeg, if gif or png convert jpeg for now
+                if(file.type === "image/jpeg" || file.type === "image/JPEG" || file.type === "image/png" || file.type === "image/gif"){
+                    var reader = new Image();
+                    $.canvasResize(file, {
+                        width: 400,
+                        height: 0,
+                        crop: false,
+                        quality: 75,
+                        //rotate: 90,
+                        callback: function(data, width, height) {
+                            socket.emit('message', mesaj, nick, color, random, data, file.size, file.type);
+                            console.log(data);
+                            $('.btn-file').addClass('m-progress');
+                        }
+                    });
+                } else {
+                    /*otherfile types soon*/
+                }
+            });
+
+            var nick = $("#nick").val();
+            var oldnick = nick;
+            $('#nick').on("change", function(){
+                var newnick = $("#nick").val();
+                var random = ($("#random").val())*11;
+                var olddnick = $('strong.onck'+random+':last').html();
+                if(newnick === ""){
+                    var randomChatNickIfEmpty = randomNickString(5);
+                    $("#nick").val(olddnick);
+                } else if(newnick !== ""){
+                    $('#xxx.nck'+random).html(newnick);
+
+                    nick = newnick;
+                    socket.emit('changeNick', nick, random, olddnick);
+                }
+            });
+            var nick_query = getParameterByName('nick');
+            if(nick_query){
+                var randomChatNick = nick_query;
+            } else {
+                var randomChatNick = randomNickString(5);
+            }
+            $("#nick").val(randomChatNick);
+            var random = randomChatNickNumber(1000,999999);
+            $("#random").val(random);
+            var color = getRandomColor();
+            $("#color").val(color);
+            socket.emit('newjoiner', randomChatNick, random*11);
+            $('#socialShare').html('<li role="presentation"><a role="menuitem" target="_blank" tabindex="-1" href="http://www.facebook.com/sharer.php?u='+mainUrl+pathname+'p">facebook</a></li><li role="presentation"><a role="menuitem" target="_blank" tabindex="-1" href="https://twitter.com/intent/tweet?text='+pTitle+' channel : '+mainUrl+pathname+'p">twitter</a></li><li role="presentation"><a role="menuitem" target="_blank" tabindex="-1" href="https://plus.google.com/share?url='+mainUrl+pathname+'p">google+</a></li><li role="presentation"><a role="menuitem" target="_blank" tabindex="-1" href="https://www.linkedin.com/shareArticle?mini=true&url='+mainUrl+pathname+'p&title='+pTitle+' channel">linkedin</a></li>');
+        });
+
+    </script>
+
+
+
+
+
+
+
+
+</head>
+<body>
+
+<div class="col-md-12" style="margin-bottom:40px; margin-top:5px;">
+    <div id="messagearea" class="messagearea" style=""></div>
+</div>
+<div class="usercount"><div id="usercount"></div><span style="font-size:10px;">online</span></div>
+<nav class="navbar navbar-default navbar-fixed-bottom footernav">
+    <footer>
+
+        <div class="col-md-8 col-md-offset-2 pddngzero">
+            <div class="pddngfivepanel-footer">
+                <form id="sendform" onsubmit="return false">
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 pddngfive">
+                        <div class="dropup">
+                            <button class="btn btn-info btn-md dropdown-toggle btn-block dropdown-menu-right" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
+                                <span class="glyphicon glyphicon-share"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2" id="socialShare">
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 pddngfive">
+                        <input id="nick" maxlength="10" name="nik" type="text" class="nick form-control input-md" data-original-title="you can change nick" placeholder="nick">
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 pddngfive">
+                        <div class="input-group">
+                            <input id="mesaj" name="mesaj" type="text" class="mesaj form-control input-md" placeholder="message">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-warning btn-md btn-block" data-original-title="send message" id="send"><i class="glyphicon glyphicon-comment"></i></button>
+                                </span>
+                        </div>
+                        <input id="color" type="hidden" class="color">
+                        <input id="random" type="hidden" class="random">
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 pddngfive">
+                            <span class="btn btn-danger btn-md btn-file btn-block" data-original-title="send image">
+                                <i class="glyphicon glyphicon-picture"></i> <input type="file" id="imagefile" accept="image/*" >
+                            </span>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </footer>
+</nav>
+</body>
+</html>

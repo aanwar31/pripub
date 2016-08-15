@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>pripub</title>
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700|Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="/widget.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script>
+
+        var pHttp   = "http://";
+        var pHost   = "pripub.com";
+        var pSub    = "www.";
+        var pPort   = "80";
+        var pTitle  = "pripub";
+        var mainUrl = pHttp+pHost+"/";
+
+        function randString(n){
+            if(!n){
+                n = 5;
+            }
+            var text = '';
+            var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+            for(var i=0; i < n; i++){
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            }
+            return text;
+        }
+
+        $(document).ready(function(){
+            var glinkr = randString('12');
+            var glink = '<span class="input-group-addon" id="basic-addon1">http://pripub.com/</span> <input type="text" class="form-control input-lg btn-success" value="'+glinkr+'" id="customchannel2" aria-describedby="basic-addon1"> <div class="input-group-btn input-group-lg"> <button class="golink2 btn btn-lg btn-success" type="button">Go!</button> <button type="button" class="btn btn-lg btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> share <span class="caret"></span> </button> <ul class="dropdown-menu" role="menu"> <li><a role="menuitem" target="_blank" tabindex="-1" href="http://www.facebook.com/sharer.php?u='+mainUrl+glinkr+'p">facebook</a></li><li role="presentation"><a role="menuitem" target="_blank" tabindex="-1" href="https://twitter.com/intent/tweet?text=pripub channel : '+mainUrl+glinkr+'p">twitter</a></li><li role="presentation"><a role="menuitem" target="_blank" tabindex="-1" href="https://plus.google.com/share?url='+mainUrl+glinkr+'p">google+</a></li><li role="presentation"><a role="menuitem" target="_blank" tabindex="-1" href="https://www.linkedin.com/shareArticle?mini=true&url='+mainUrl+glinkr+'p&title='+pTitle+' channel">linkedin</a></li> </ul> </div>';
+
+            $("#allButton").html(glink);
+
+            $('#clink').on("click", function(){
+                $('#sclink').toggle();
+            });
+
+            $('.golink2').on("click", function(){
+                var customchannel = $('#customchannel2').val();
+                window.open(mainUrl+customchannel, '_blank');
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<div class="site-wrapper">
+    <div class="site-wrapper-inner">
+        <div class="cover-container">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="inner cover">
+                    <img width="64" src="/img/256.png">
+                    <h1 class="cover-heading">let's talk on pripub!</h1>
+                    <p class="lead">no register! no login! no conversations save!<br/>you can share the link with you want to talk and start messaging or <a style="color: #FFF;" href="https://chrome.google.com/webstore/detail/pripub/mecpgkdofalihjmbhldlicojfnnfbbgf">click here</a> and use chrome extension and talk any website visitors.</p>
+
+                    <p id="glink" class="lead"></p>
+                    <p>
+                    <div class="input-group input-group-lg" id="allButton"></div>
+                    </p>
+
+                </div>
+            </div>
+            <div class="mastfoot">
+                <div class="inner">
+                    <p><a href="/pripub">pripub</a> private & public, anonymously chat. conversations won't be save.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+
+
+<style>
+    .form-control::-webkit-input-placeholder { color: white; }
+    .form-control:-moz-placeholder { color: white; }
+    .form-control::-moz-placeholder { color: white; }
+    .form-control:-ms-input-placeholder { color: white; }
+
+    .col-md-12{
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    .input-group-addon{
+
+        background-color: #5cb85c !important;
+        border: 1px solid #4cae4c !important;
+        color: #FFF !important;
+
+    }
+
+
+
+
+    .btn-xl {
+        font-size: 23px;
+        padding: 10px 16px;
+        border-radius: 0px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    Links
+    a,
+    a:focus,
+    a:hover {
+        color: #fff;
+    }
+
+    .btn-default,
+    .btn-default:hover,
+    .btn-default:focus {
+        color: #333;
+        text-shadow: none;
+        background-color: #fff;
+        border: 1px solid #fff;
+    }
+
+
+
+    html,
+    body {
+        height: 100%;
+        background-color: #606D80;
+        font-family: 'Open Sans', sans-serif;
+    }
+    body {
+        color: #fff;
+        text-align: center;
+
+    }
+
+    .site-wrapper {
+        display: table;
+        width: 100%;
+        height: 100%; /* For at least Firefox */
+        min-height: 100%;
+        -webkit-box-shadow: inset 0 0 100px rgba(0,0,0,.1);
+        box-shadow: inset 0 0 100px rgba(0,0,0,.1);
+    }
+    .site-wrapper-inner {
+        display: table-cell;
+        vertical-align: top;
+    }
+    .cover-container {
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .inner {
+        padding: 30px;
+    }
+
+    .masthead-brand {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .masthead-nav > li {
+        display: inline-block;
+    }
+    .masthead-nav > li + li {
+        margin-left: 20px;
+    }
+    .masthead-nav > li > a {
+        padding-right: 0;
+        padding-left: 0;
+        font-size: 16px;
+        font-weight: 400;
+        color: #fff; /* IE8 proofing */
+        color: rgba(255,255,255,.75);
+        border-bottom: 2px solid transparent;
+    }
+    .masthead-nav > li > a:hover,
+    .masthead-nav > li > a:focus {
+        background-color: transparent;
+        border-bottom-color: #a9a9a9;
+        border-bottom-color: rgba(255,255,255,.25);
+    }
+    .masthead-nav > .active > a,
+    .masthead-nav > .active > a:hover,
+    .masthead-nav > .active > a:focus {
+        color: #fff;
+        border-bottom-color: #fff;
+    }
+
+    @media (min-width: 768px) {
+        .masthead-brand {
+            float: left;
+        }
+        .masthead-nav {
+            float: right;
+        }
+    }
+
+    .cover {
+        padding: 0 20px;
+    }
+    .cover .btn-lg {
+        padding: 10px 20px;
+        font-weight: bold;
+    }
+
+
+
+
+    .mastfoot {
+        color: #f9f9f9; /* IE8 proofing */
+        font-size: 11px;
+
+    }
+
+    .mastfoot  a{
+        color: #FFF;
+    }
+
+
+    @media (min-width: 768px) {
+
+        .masthead {
+            position: fixed;
+            top: 0;
+        }
+        .mastfoot {
+            position: fixed;
+            bottom: 0;
+        }
+
+        .site-wrapper-inner {
+            vertical-align: middle;
+        }
+        .masthead,
+        .mastfoot,
+        .cover-container {
+            width: 100%;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .masthead,
+        .mastfoot,
+        .cover-container {
+            width: 860px;
+        }
+    }
+</style>
