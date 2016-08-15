@@ -1,6 +1,6 @@
 # pripub
 ```sh
-pripub private or public, anonymously chat. (2014)
+pripub private or public, anonymously chat app + chrome extension  (2014)
 nodejs + socket.io
 without express, redis, sql
 https coming soon
