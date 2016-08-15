@@ -1,0 +1,21 @@
+{
+   "background": {
+      "persistent": false,
+      "scripts": [ "bg.js" ]
+   },
+   "browser_action": {
+      "default_title": "pripub"
+   },
+   "description": "you can chat other same website visitors",
+   "icons": {
+      "128": "128.png",
+      "16": "16.png",
+      "48": "48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyAri4mRTwzd5KTabOaLhwt2L0aabASf4YpIeSSDDOr2CVYgijG0upR6qdYP0uXpTNP3t4EOPq/GnIB89HpDUQ9xdIFIvcJeSuhqtTj34rYLMmQnHRNHZzq4+h/UkSEJXsPsGx1S/RcYGIWpBNxzOvpFAypRZRom7WQCOcEUiEYvKoX5FVDlb0y2d9Rn8IwxwZNzHWlr4cVftFzepwPkeYzTHul7MD6LwmYsvkT9TGFip8e32XKSR1ZS0N2D7U5Nlh22gPzftROQXzElPnw8ZjIFt6Fw/mc2NtstE2d4+U1CB5TI2qkAKf6fPTz3pEP6DSecw1ZJtTr9orJ/53YRskwIDAQAB",
+   "manifest_version": 2,
+   "name": "pripub",
+   "permissions": [ "activeTab", "tabs" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "3.2"
+}
