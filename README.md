@@ -1,9 +1,8 @@
 # pripub
 ```sh
-pripub private or public, anonymously chat app + chrome extension  (2014)
+pripub private or public, anonymously chat app and chrome extension for beginners  (2014)
 nodejs + socket.io
 without express, redis, sql
-https coming soon
 ```
 
 
@@ -15,6 +14,16 @@ npm install
 ##start
 ```sh
 node server.js
+```
+
+##features
+```sh
+sending image
+online user counter
+totally messages counter
+changeable nicks
+@nick sound alert
+chrome extension uses pripub
 ```
 
 ##demo
